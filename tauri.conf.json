@@ -1,0 +1,53 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Senda",
+  "version": "1.0.0",
+  "identifier": "dev.senda.explorer",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build",
+    "devUrl": "http://localhost:1420",
+    "frontendDist": "./dist",
+    "features": ["desktop"]
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Senda",
+        "width": 1280,
+        "height": 820,
+        "minWidth": 680,
+        "minHeight": 480
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src ipc: http://ipc.localhost"
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["nsis"],
+    "category": "Utility",
+    "shortDescription": "Explorador local de archivos para Windows",
+    "longDescription": "Navega por carpetas y busca archivos por nombre en las unidades de tu equipo. Filtros por tipo, pestanas y errores explicados, sin cuentas ni servicios propios en la nube.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "allowDowngrades": false,
+      "webviewInstallMode": { "type": "downloadBootstrapper", "silent": true },
+      "nsis": {
+        "installMode": "currentUser",
+        "languages": ["Spanish", "English"],
+        "displayLanguageSelector": false,
+        "installerIcon": "icons/icon.ico",
+        "installerHooks": "installer/hooks.nsh"
+      }
+    }
+  }
+}

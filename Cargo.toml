@@ -1,0 +1,33 @@
+[package]
+name = "rust_file_explorer_v1"
+version = "1.0.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+walkdir = "2"
+tauri = { version = "2", optional = true , features = [] }
+tauri-plugin-opener = { version = "2", optional = true }
+
+[features]
+desktop = ["dep:tauri", "dep:tauri-plugin-opener", "dep:tauri-build"]
+custom-protocol = ["desktop", "tauri/custom-protocol"]
+
+[build-dependencies]
+tauri-build = { version = "2", optional = true , features = [] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.61", features = ["Win32_Storage_FileSystem"] }
+
+[[bin]]
+name = "rust_file_explorer_v1"
+path = "src/main.rs"
+required-features = ["desktop"]
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
